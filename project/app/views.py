@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from rest_framework.generics import ListAPIView, RetrieveAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, RetrieveUpdateAPIView, \
+    RetrieveDestroyAPIView
 
 from app.models import Author, Book
 from app.serializer import AuthorSerializer, BookSerializer
@@ -26,5 +27,21 @@ class BookList(ListAPIView):
 
 
 class BookDetail(RetrieveAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+
+class BookCreate(CreateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+
+class BookUpdate(RetrieveUpdateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    lookup_field = 'pk'
+
+
+class BookDelete(RetrieveDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
